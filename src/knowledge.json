@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "subject": "physics",
+    "grade": "9",
+    "topic": "motion",
+    "content": "ፍጥነት (Velocity) ማለት የአንድ ነገር የቦታ መለወጥ መጠን ከጊዜ አንፃር ሲታይ ነው። የፍጥነት መለኪያ ዩኒት ሜትር በሰከንድ (m/s) ነው። ቀመሩም v = d / t (ፍጥነት = ርቀት / ጊዜ) ነው።"
+  },
+  {
+    "id": 2,
+    "subject": "math",
+    "grade": "9",
+    "topic": "quadratic",
+    "content": "የኳድራቲክ እኩልታ (Quadratic Equation) አጠቃላይ ပုံစም ax^2 + bx + c = 0 ነው። የዚህን እኩልታ x እሴት ለማግኘት የኳድራቲክ ቀመር እንጠቀማለን፡ x = (-b ± √(b^2 - 4ac)) / (2a)።"
+  },
+  {
+    "id": 3,
+    "subject": "chemistry",
+    "grade": "9",
+    "topic": "atom",
+    "content": "አቶም (Atom) የቁስ አካል ትንሹ መሠረታዊ ንጥል ነገር ነው። አቶም በውስጡ ፕሮቶን (Proton)፣ ኒውትሮን (Neutron) እና ኤሌክትሮን (Electron) ይዟል።"
+  }
+]
