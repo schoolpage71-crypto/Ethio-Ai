@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethio Edu AI - 100% Offline AI Tutor</title>
+    
+    <!-- KaTeX CSS ለሒሳብ እና ሳይንስ ቀመሮች -->
+    <link rel="stylesheet" href="../assets/libs/katex/katex.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- 1. ሞዴሉ ከሌለ የሚታይ የዳውንሎድ ማዕከል -->
+        <div id="download-section">
+            <h2>Ethio Edu AI እንኳን ደህና መጡ</h2>
+            <p id="status-text">የትምህርት AI ሞዴል (Gemma 2 2B) በኮምፒውተርዎ ላይ አልተገኘም። እባክዎ ከታች ያለውን ቁልፍ በመጫን ያውርዱ (አንዴ ከወረደ በኋላ ሁልጊዜ ያለ ኢንተርኔት ይሰራል)።</p>
+            
+            <button id="download-btn" class="btn-primary">AI ሞዴል አውርድ (~1.5 GB)</button>
+            
+            <div id="progress-container">
+                <div id="progress-bar">0%</div>
+            </div>
+        </div>
+
+        <!-- 2. ሞዴሉ ዝግጁ ሲሆን የሚታይ የትምህርት ቻት ገጽ -->
+        <div id="chat-section">
+            <header>Ethio Edu AI - 9ኛ-12ኛ ክፍል የትምህርት ረዳት</header>
+            
+            <div id="chat-box">
+                <div class="message ai-message">ሰላም! እኔ የ Ethio Edu AI የትምህርት አማካሪዎ ነኝ። ስለ ፊዚክስ፣ ኬሚስትሪ፣ ባዮሎጂ ወይም ሒሳብ የሚከብዱዎትን ጥያቄዎች በአማርኛ ወይም በእንግሊዝኛ መጠየቅ ይችላሉ!</div>
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="user-input" placeholder="ጥያቄዎን እዚህ ይጻፉ (ለምሳሌ፦ የኳድራቲክ ቀመር አብራራልኝ)...">
+                <button id="send-btn">ላክ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KaTeX JavaScript ፋይሎች -->
+    <script defer src="../assets/libs/katex/katex.min.js"></script>
+    <script defer src="../assets/libs/katex/contrib/auto-render.min.js"></script>
+    
+    <!-- ዋናው የ Frontend ሎጂክ ፋይል -->
+    <script src="renderer.js"></script>
+</body>
+</html>
