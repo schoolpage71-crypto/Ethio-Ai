@@ -4,6 +4,9 @@ const fs = require('fs');
 const https = require('https');
 const { spawn } = require('child_process');
 
+// የትምህርት መጽሐፍት ማዕከል (Offline RAG Knowledge Base)
+const knowledgeBase = require('./knowledge.json');
+
 let mainWindow;
 let llamaProcess = null;
 
@@ -127,11 +130,22 @@ function startLlamaServer() {
   });
 }
 
-// 4. ተማሪው ጥያቄ ሲልክ ወደ llama-server መላክ
+// 4. ተማሪው ጥያቄ ሲልክ RAG (Knowledge Base) ተጠቅሞ ወደ llama-server መላክ
 ipcMain.handle('send-chat-message', async (event, userPrompt) => {
-  const systemPrompt = `System: አንተ "Ethio Edu AI" የተባለ የኢትዮጵያ 9ኛ እስከ 12ኛ ክፍል ተማሪዎች ወዳጅ የሆንክ የትምህርት አማካሪ ነህ። ደረጃ በደረጃ በአማርኛ እና በ LaTeX ቀመር ($...$) አብራራ።\nUser: ${userPrompt}\nAssistant:`;
-
   try {
+    // ከ Knowledge Base ውስጥ ከጥያቄው ጋር የሚዛመደውን ጽሁፍ መፈለግ
+    let matchedContext = "";
+    const lowerPrompt = userPrompt.toLowerCase();
+    
+    for (const item of knowledgeBase) {
+      if (lowerPrompt.includes(item.topic) || lowerPrompt.includes(item.subject) || lowerPrompt.includes(item.grade)) {
+        matchedContext += `[ከመማሪያ መጽሐፍ የተወሰደ]: ${item.content}\n`;
+      }
+    }
+
+    // ለ AI ሞዴል የሚላከው Prompt (ማብራሪያ እና የትምህርት መጽሐፍ ጽሁፍ)
+    const systemPrompt = `System: አንተ "Ethio Edu AI" የኢትዮጵያ 9-12ኛ ክፍል ተማሪዎች የትምህርት አማካሪ ነህ። ከተሰጠው የመማሪያ መጽሐፍ መረጃ በመነሳት ለተማሪው በአማርኛ እና በ LaTeX ቀመር ($...$) ደረጃ በደረጃ አብራራ።\n\n${matchedContext}\nUser: ${userPrompt}\nAssistant:`;
+
     const response = await fetch('http://127.0.0.1:8080/completion', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -145,7 +159,7 @@ ipcMain.handle('send-chat-message', async (event, userPrompt) => {
     const data = await response.json();
     return { success: true, text: data.content };
   } catch (error) {
-    return { success: false, error: 'ከ AI ሞዴሉ ጋር መገናኘት አልተቻለም።' };
+    return { success: false, error: 'ከ AI ሞዴሉ ጋር መገናኘት አልተቻለም። ሰርቨሩ እየሰራ መሆኑን ያረጋግጡ።' };
   }
 });
 
