@@ -1,0 +1,31 @@
+{
+  "name": "ethio-edu-ai",
+  "version": "1.0.0",
+  "description": "100% Offline AI tutor for Ethiopian Class 9-12 students",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.ethioedu.ai",
+    "productName": "Ethio Edu AI",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "bin/**/*",
+      "package.json"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^24.13.3"
+  }
+}
