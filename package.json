@@ -5,17 +5,17 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder --win --x64 -c.publish=never"
   },
   "build": {
     "appId": "com.ethioedu.ai",
     "productName": "Ethio Edu AI",
+    "publish": ["never"],
     "directories": {
       "output": "dist"
     },
     "win": {
-      "target": "nsis",
-      "icon": "assets/icon.ico"
+      "target": "nsis"
     },
     "files": [
       "src/**/*",
