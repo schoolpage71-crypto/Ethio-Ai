@@ -16,7 +16,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 20
-        # cache: 'npm' እዚህ ጋር የነበረውን አጥፍተነዋል
 
     - name: Install Dependencies
       run: npm install
@@ -27,8 +26,17 @@ jobs:
         Invoke-WebRequest -Uri "https://github.com/ggerganov/llama.cpp/releases/download/b4000/llama-b4000-bin-win-vulkan-x64.zip" -OutFile "llama.zip"
         Expand-Archive -Path "llama.zip" -DestinationPath "llama_temp"
         
-        # ፋይሉ የሚገኝበትን ትክክለኛ ቦታ ፈልጎ መቅዳት
+        # ፋይሉ የሚገኝበትን ትክክለኛ ቦታ በራሱ ፈልጎ ወደ bin/ ፎልደር መቅዳት
         $exeFile = Get-ChildItem -Path "llama_temp" -Recurse -Filter "llama-server.exe"
         Copy-Item $exeFile.FullName -Destination "bin/llama-server.exe"
         
         Remove-Item "llama.zip", "llama_temp" -Recurse
+
+    - name: Build Windows App (.exe)
+      run: npm run build
+
+    - name: Upload Artifacts (Installer)
+      uses: actions/upload-artifact@v4
+      with:
+        name: Ethio-Edu-AI-Windows-Installer
+        path: dist/*.exe
