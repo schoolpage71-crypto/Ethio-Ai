@@ -16,7 +16,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 20
-        cache: 'npm'
+        # cache: 'npm' እዚህ ጋር የነበረውን አጥፍተነዋል
 
     - name: Install Dependencies
       run: npm install
@@ -24,7 +24,6 @@ jobs:
     - name: Download llama-server.exe (ለዊንዶውስ)
       run: |
         New-Item -ItemType Directory -Force -Path bin
-        # ከ llama.cpp ኦፊሴላዊ റിലീസ് የዊንዶውስ ሰርቨር ፋይል ማውረድ
         Invoke-WebRequest -Uri "https://github.com/ggerganov/llama.cpp/releases/download/b4000/llama-b4000-bin-win-vulkan-x64.zip" -OutFile "llama.zip"
         Expand-Archive -Path "llama.zip" -DestinationPath "llama_temp"
         Copy-Item "llama_temp/build/bin/llama-server.exe" -Destination "bin/llama-server.exe"
