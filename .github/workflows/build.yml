@@ -1,0 +1,40 @@
+name: Build Ethio Edu AI Windows Installer
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-win:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Download llama-server.exe (ለዊንዶውስ)
+      run: |
+        New-Item -ItemType Directory -Force -Path bin
+        # ከ llama.cpp ኦፊሴላዊ റിലീസ് የዊንዶውስ ሰርቨር ፋይል ማውረድ
+        Invoke-WebRequest -Uri "https://github.com/ggerganov/llama.cpp/releases/download/b4000/llama-b4000-bin-win-vulkan-x64.zip" -OutFile "llama.zip"
+        Expand-Archive -Path "llama.zip" -DestinationPath "llama_temp"
+        Copy-Item "llama_temp/build/bin/llama-server.exe" -Destination "bin/llama-server.exe"
+        Remove-Item "llama.zip", "llama_temp" -Recurse
+
+    - name: Build Windows App (.exe)
+      run: npm run build
+
+    - name: Upload Artifacts (Installer)
+      uses: actions/upload-artifact@v4
+      with:
+        name: Ethio-Edu-AI-Windows-Installer
+        path: dist/*.exe
