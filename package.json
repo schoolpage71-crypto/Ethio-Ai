@@ -1,4 +1,3 @@
-
 {
   "name": "ethio-edu-ai",
   "version": "1.0.0",
@@ -6,12 +5,11 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --win --x64 -c.publish=never"
+    "build": "electron-builder --win --x64 --publish never"
   },
   "build": {
     "appId": "com.ethioedu.ai",
     "productName": "Ethio Edu AI",
-    "publish": "never",
     "directories": {
       "output": "dist"
     },
