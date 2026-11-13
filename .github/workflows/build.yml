@@ -32,7 +32,7 @@ jobs:
         Remove-Item "llama.zip", "llama_temp" -Recurse
 
     - name: Build Windows App (.exe)
-      run: npm run build
+      run: npx electron-builder --win --x64 --publish never
 
     - name: Upload Artifacts (Installer)
       uses: actions/upload-artifact@v4
