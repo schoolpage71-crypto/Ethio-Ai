@@ -19,8 +19,13 @@
     "files": [
       "src/**/*",
       "assets/**/*",
-      "bin/**/*",
       "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "bin/",
+        "to": "bin/"
+      }
     ]
   },
   "devDependencies": {
